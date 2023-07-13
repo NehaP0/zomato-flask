@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zesty Zomato - Order</title>
+</head>
+<body>
+    <h1>Place Order</h1>
+    <form action="/order" method="post">
+        <label for="customer_name">Customer Name:</label>
+        <input type="text" id="customer_name" name="customer_name"><br><br>
+        <label for="dish_ids">Dish IDs:</label>
+        <input type="text" id="dish_ids" name="dish_ids" placeholder="Enter dish IDs separated by commas"><br><br>
+        <input type="submit" value="Place Order">
+    </form>
+
+    {% if error %}
+    <p>{{ error }}</p>
+    {% endif %}
+</body>
+</html>

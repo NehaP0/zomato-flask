@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zesty Zomato - Menu</title>
+</head>
+<body>
+    <h1>Menu</h1>
+    <ul>
+        {% for item in menu %}
+        <li>{{ item.id }} - {{ item.name }} - ${{ item.price }} - {% if item.availability %}Available{% else %}Unavailable{% endif %}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Add New Dish</h2>
+    <form action="/menu" method="post">
+        <label for="dish_id">Dish ID:</label>
+        <input type="text" id="dish_id" name="dish_id"><br><br>
+        <label for="dish_name">Dish Name:</label>
+        <input type="text" id="dish_name" name="dish_name"><br><br>
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" step="0.01"><br><br>
+        <label for="availability">Availability:</label>
+        <select id="availability" name="availability">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select><br><br>
+        <input type="submit" value="Add Dish">
+    </form>
+</body>
+</html>
