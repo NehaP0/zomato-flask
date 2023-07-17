@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zesty Zomato - Update Dish</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #e74c3c;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            padding: 5px;
+            width: 200px;
+        }
+
+        input[type="checkbox"] {
+            margin-top: 10px;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #c0392b;
+        }
+        .navbar {
+            background-color: #f2f2f2;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navbar-button {
+            padding: 5px 10px;
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .navbar-button:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <!-- Add buttons to the navbar -->
+        <a href="/order" class="navbar-button">Place Order</a>
+    </div>
+
+    <h1>Update Dish</h1>
+    <form action="/menu/update/{{ dish.id }}" method="post">
+        <label for="dish_name">Dish Name:</label>
+        <input type="text" id="dish_name" name="dish_name" value="{{ dish.name }}"><br><br>
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" step="0.01" value="{{ dish.price }}"><br><br>
+        <label for="availability">Availability:</label>
+        <select id="availability" name="availability">
+            <option value="yes" {% if dish.availability %}selected{% endif %}>Yes</option>
+            <option value="no" {% if not dish.availability %}selected{% endif %}>No</option>
+        </select><br><br>
+        <input type="submit" value="Update Dish">
+    </form>
+</body>
+</html>

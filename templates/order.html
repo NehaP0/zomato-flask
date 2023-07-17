@@ -2,8 +2,104 @@
 <html>
 <head>
     <title>Zesty Zomato - Order</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #e74c3c;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            padding: 5px;
+            width: 200px;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #c0392b;
+        }
+
+        .error {
+            color: #c0392b;
+            margin-top: 10px;
+        }
+        .navbar {
+            background-color: #f2f2f2;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navbar-button {
+            padding: 5px 10px;
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .navbar-button:hover {
+            background-color: #c0392b;
+        }
+    </style>
+    <script>
+        // Function to validate the order form
+        function validateOrderForm() {
+            var customerName = document.getElementById('customer_name').value;
+            var dishIds = document.getElementById('dish_ids').value;
+
+            // Check if the customer name is entered
+            if (customerName.trim() === '') {
+                alert('Please enter the customer name.');
+                return false;
+            }
+
+            // Check if the dish IDs are entered
+            if (dishIds.trim() === '') {
+                alert('Please enter the dish IDs.');
+                return false;
+            }
+
+            // Check if the dish IDs contain only numbers and commas
+            var dishIdsRegex = /^[0-9,]+$/;
+            if (!dishIdsRegex.test(dishIds)) {
+                alert('Please enter valid dish IDs (numbers separated by commas).');
+                return false;
+            }
+
+            return true;
+        }
+    </script>
 </head>
 <body>
+
+    <div class="navbar">
+        <!-- Add buttons to the navbar -->
+        <a href="/order" class="navbar-button">Place Order</a>
+    </div>
+
     <h1>Place Order</h1>
     <form action="/order" method="post">
         <label for="customer_name">Customer Name:</label>
@@ -14,7 +110,7 @@
     </form>
 
     {% if error %}
-    <p>{{ error }}</p>
+    <p class="error">{{ error }}</p>
     {% endif %}
 </body>
 </html>

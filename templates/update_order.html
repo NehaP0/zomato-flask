@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zesty Zomato - Update Order</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #e74c3c;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            padding: 5px;
+            width: 200px;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #c0392b;
+        }
+
+        .error {
+            color: #c0392b;
+            margin-top: 10px;
+        }
+        .navbar {
+            background-color: #f2f2f2;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navbar-button {
+            padding: 5px 10px;
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .navbar-button:hover {
+            background-color: #c0392b;
+        }
+    </style>
+    <script>
+        // Function to validate the order update form
+        function validateOrderUpdateForm() {
+            var orderId = document.getElementById('order_id').value;
+            var status = document.getElementById('status').value;
+
+            // Check if the order ID is entered
+            if (orderId.trim() === '') {
+                alert('Please enter the order ID.');
+                return false;
+            }
+
+            // Check if the status is selected
+            if (status.trim() === '') {
+                alert('Please select the order status.');
+                return false;
+            }
+
+            // Check if the order ID contains only numbers
+            var orderIdRegex = /^[0-9]+$/;
+            if (!orderIdRegex.test(orderId)) {
+                alert('Please enter a valid order ID (numbers only).');
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</head>
+<body>
+
+    <div class="navbar">
+        <!-- Add buttons to the navbar -->
+        <a href="/order" class="navbar-button">Place Order</a>
+    </div>
+
+    <h1>Update Order Status</h1>
+    <form action="/order/update" method="post" onsubmit="return validateOrderUpdateForm();">
+        <label for="order_id">Order ID:</label>
+        <input type="text" id="order_id" name="order_id"><br><br>
+        <label for="status">Status:</label>
+        <select id="status" name="status">
+            <option value="">Select Status</option>
+            <option value="received">Received</option>
+            <option value="preparing">Preparing</option>
+            <option value="ready">Ready for Pickup</option>
+            <option value="delivered">Delivered</option>
+        </select><br><br>
+        <input type="submit" value="Update Status">
+    </form>
+
+    {% if error %}
+    <p class="error">{{ error }}</p>
+    {% endif %}
+</body>
+</html>

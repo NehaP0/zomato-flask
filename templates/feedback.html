@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zesty Zomato - Provide Feedback</title>
+    <style>
+        /* Add your custom styles here */
+        .navbar {
+            background-color: #f2f2f2;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navbar-button {
+            padding: 5px 10px;
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .navbar-button:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <!-- Add buttons to the navbar -->
+        <a href="/order" class="navbar-button">Place Order</a>
+    </div>
+
+    <h1>Provide Feedback</h1>
+    <h2>Order Details</h2>
+    <p>Order ID: {{ order.id }}</p>
+    <p>Customer Name: {{ order.customer_name }}</p>
+
+    <h2>Rating and Review</h2>
+    <form action="/order/{{ order.id }}/feedback" method="post">
+        <label for="rating">Rating:</label>
+        <input type="number" id="rating" name="rating" min="1" max="5" required><br><br>
+        <label for="review">Review:</label>
+        <textarea id="review" name="review" rows="4" cols="50" required></textarea><br><br>
+        <input type="submit" value="Submit Feedback">
+    </form>
+
+    {% if error %}
+    <p class="error">{{ error }}</p>
+    {% endif %}
+</body>
+</html>

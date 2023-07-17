@@ -2,17 +2,129 @@
 <html>
 <head>
     <title>Zesty Zomato - Menu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #e74c3c;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .availability {
+            color: #27ae60;
+        }
+
+        .unavailability {
+            color: #c0392b;
+        }
+
+        h2 {
+            margin-top: 20px;
+            color: #e74c3c;
+        }
+
+        form {
+            display: inline;
+        }
+
+        .button {
+            padding: 10px 20px;
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            margin-right: 5px;
+        }
+
+        .button.update {
+            background-color: #27ae60;
+        }
+
+        .button:hover {
+            background-color: #c0392b;
+        }
+        .navbar {
+            background-color: #f2f2f2;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navbar-button {
+            padding: 5px 10px;
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .navbar-button:hover {
+            background-color: #c0392b;
+        }
+    </style>
 </head>
 <body>
+    <div class="navbar">
+        <!-- Add buttons to the navbar -->
+        <a href="/order" class="navbar-button">Place Order</a>
+    </div>
+
     <h1>Menu</h1>
-    <ul>
-        {% for item in menu %}
-        <li>{{ item.id }} - {{ item.name }} - ${{ item.price }} - {% if item.availability %}Available{% else %}Unavailable{% endif %}</li>
-        {% endfor %}
-    </ul>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Availability</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in menu %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.name }}</td>
+                <td>Rs{{ item.price }}</td>
+                <td>
+                    {% if item.availability %}
+                        <span class="availability">Available</span>
+                    {% else %}
+                        <span class="unavailability">Unavailable</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <form action="/menu/remove/{{ item.id }}" method="post" style="display: inline;">
+                        <input class="button" type="submit" value="Delete">
+                    </form>
+                    <a class="button update" href="/menu/update/{{ item.id }}">Update</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
     <h2>Add New Dish</h2>
-    <form action="/menu" method="post">
+    <form action="/" method="post">
         <label for="dish_id">Dish ID:</label>
         <input type="text" id="dish_id" name="dish_id"><br><br>
         <label for="dish_name">Dish Name:</label>
